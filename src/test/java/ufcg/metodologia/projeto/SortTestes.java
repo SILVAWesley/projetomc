@@ -13,6 +13,7 @@ import ufcg.metodologia.projetomc.util.ArrayGenerator;
 import ufcg.metodologia.projetomc.util.SortAlgorithm;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.Assert.assertArrayEquals;
 
@@ -148,30 +149,42 @@ public class SortTestes {
     @Test
     public void automatedTestForQuickSort(){
         Sort qs = SortFactory.createSort(SortAlgorithm.QUICK);
-        evaluateSort(qs);
+        evaluateSortAscending(qs);
+        evaluateSortDescending(qs);
     }
 
     /*Esse teste demora na faixa de 60-65 segundos para rodar.*/
     @Test
     public void automatedTestForMergeSort(){
         Sort ms = SortFactory.createSort(SortAlgorithm.MERGE);
-        evaluateSort(ms);
+        evaluateSortAscending(ms);
+        evaluateSortDescending(ms);
     }
 
     /*Esse teste demora na faixa de 3 minutos e 10-20 segundos para rodar.*/
     @Test
     public void automatedTestForInsertionSort(){
         Sort is = SortFactory.createSort(SortAlgorithm.INSERTION);
-        evaluateSort(is);
+        evaluateSortAscending(is);
+        evaluateSortDescending(is);
     }
 
     /**Avalia meu algoritmo de ordenação contra a implementação fornecida pelo próprio Java.
      * Isso fornece confiança de que minha implementação está adequada.*/
-    private void evaluateSort(Sort mySort) {
+    private void evaluateSortAscending(Sort mySort) {
         for (Double[] array: randomArrays) {
             Double[] tmp = Arrays.copyOfRange(array, 0, ArrayGenerator.getArrayMaxSize());
             mySort.sort(array, true);
             Arrays.sort(tmp);
+            Assert.assertArrayEquals(tmp, array);
+        }
+    }
+    
+    private void evaluateSortDescending(Sort mySort) {
+        for (Double[] array: randomArrays) {
+            Double[] tmp = Arrays.copyOfRange(array, 0, ArrayGenerator.getArrayMaxSize());
+            mySort.sort(array, false);
+            Arrays.sort(tmp, Collections.reverseOrder());
             Assert.assertArrayEquals(tmp, array);
         }
     }

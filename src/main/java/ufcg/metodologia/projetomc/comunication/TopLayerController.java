@@ -19,7 +19,7 @@ public class TopLayerController implements TopLayerFacade {
 	public void sortMilestone1(String algorithmStr, String inputStr, String outputStr, String orderStr, String replicationsStr) {
 		SortOrder orderEnum = SortOrder.valueOf(orderStr.toUpperCase());
 		SortAlgorithm algorithmEnum = SortAlgorithm.valueOf(algorithmStr.toUpperCase());
-		int replications = Integer.parseInt(replicationsStr);
+		int replications = Integer.parseInt(replicationsStr.trim());
 	
 		InputLoader inputLoader = new InputLoader();
 		OutputSaver outputSaver = new OutputSaver();

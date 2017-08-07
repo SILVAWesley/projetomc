@@ -78,37 +78,4 @@ public class Main {
     		throw new RuntimeException("Error while trying to generate dataset. " + e.getMessage());
     	}
     }
-    
-    public static void sortm1(String argAlgorithm, String argInput, String argOutput, String argOrder, String argReplications) {
-    	try {
-	        SortOrder orderType = SortOrder.valueOf(argOrder.toUpperCase() + "a");
-	        SortAlgorithm algorithmType = SortAlgorithm.valueOf(argAlgorithm.toUpperCase());
-	        int replications = Integer.parseInt(argReplications);
-	
-	        InputLoader inputLoader = new InputLoader();
-	        OutputSaver outputSaver = new OutputSaver();
-	        
-	        List<Double[]> input = inputLoader.load(argInput);
-	        
-	        List<OutputEntry> outputEntries = applySort(algorithmType, input, orderType, replications);
-	        outputSaver.save(argOutput, outputEntries);
-    	} catch(ArrayIndexOutOfBoundsException e) {
-    		e.printStackTrace();
-    		throw new RuntimeException("Missing or invalid arguments.");
-    	}
-    }
-
-    public static List<OutputEntry> applySort(SortAlgorithm algorithmType, List<Double[]> input, SortOrder sortOrder, int replications) {
-        List<OutputEntry> outputEntries = new ArrayList<OutputEntry>();
-        Sort sort = SortFactory.createSort(algorithmType);
-        for (Double[] array : input) {
-            for (int i = 0 ; i <= replications; i++) {
-                long executionTime = sort.sort(array, sortOrder.getValue());
-                OutputEntry entry = new OutputEntry(Arrays.toString(array), algorithmType.toString(), sortOrder.toString(), executionTime, i);
-                outputEntries.add(entry);
-            }
-        }
-
-        return outputEntries;
-    }
 }
