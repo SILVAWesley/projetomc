@@ -5,7 +5,7 @@ package ufcg.metodologia.projetomc.util;
  */
 
 public enum SortOrder {
-    ASCENDING(true), DESCENDING(false);
+    ASCENDING(true), DESCENDING(false), NONE(true);
 
     private boolean value;
 

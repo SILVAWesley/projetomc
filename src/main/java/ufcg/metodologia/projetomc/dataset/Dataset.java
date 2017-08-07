@@ -11,11 +11,7 @@ import java.util.Random;
 import ufcg.metodologia.projetomc.sort.QuickSort;
 import ufcg.metodologia.projetomc.util.CSVUtils;
 import ufcg.metodologia.projetomc.util.SortOrder;
-import ufcg.metodologia.projetomc.util.SortType;
-
-/**
- * Created by Wesley Silva on 05/08/2017.
- */
+import ufcg.metodologia.projetomc.util.SortedElements;
 
 public class Dataset {
     public final static long MAX_RANDOM_NUM = 1000000;
@@ -23,18 +19,18 @@ public class Dataset {
 
     private String name;
     private int arraySize;
-    private SortType sortType;
+    private SortedElements sortType;
     private int datasetSize;
     private SortOrder sortOrder;
 
     private List<Double[]> content;
 
     public static void main(String[] args) throws IOException {
-        Dataset dataset = new Dataset("dataset_1.csv", SortOrder.DESCENDING, SortType.ALL, 10, 100);
+        Dataset dataset = new Dataset("dataset_1.csv", SortOrder.DESCENDING, SortedElements.ALL, 10, 100);
         dataset.save();
     }
 
-    public Dataset(String name, SortOrder sortOrder, SortType sortType, int arraySize, int datasetSize) {
+    public Dataset(String name, SortOrder sortOrder, SortedElements sortType, int arraySize, int datasetSize) {
         this.name = name;
         this.sortOrder = sortOrder;
         this.sortType = sortType;
@@ -50,10 +46,12 @@ public class Dataset {
         for (int i = 0; i < this.datasetSize; i++) {
             Double[] array = new Double[arraySize];
 
-            if ((sortOrder == SortOrder.ASCENDING && sortType == SortType.ALL) || (sortOrder == SortOrder.DESCENDING && sortType == SortType.NONE)) {
+            if ((sortOrder == SortOrder.ASCENDING && sortType == SortedElements.ALL) || (sortOrder == SortOrder.DESCENDING && sortType == SortedElements.NONE)) {
                 generateAscendingOrderedArray(array);
-            } else if ((sortOrder == SortOrder.DESCENDING && sortType == SortType.ALL) || (sortOrder == SortOrder.ASCENDING && sortType == SortType.NONE)) {
+            } else if ((sortOrder == SortOrder.DESCENDING && sortType == SortedElements.ALL) || (sortOrder == SortOrder.ASCENDING && sortType == SortedElements.NONE)) {
                 generateDescendingOrderedArray(array);
+            } else if (sortOrder == SortOrder.NONE) {
+            	generateRandomArray(array);
             } else {
                 throw new RuntimeException("Error, for input: sortOrder=" + sortOrder + " and sortType=" + sortType + ".");
             }
@@ -87,7 +85,7 @@ public class Dataset {
     }
 
     public void save() throws IOException {
-        File file = new File("Algorithms/src/res/" + name);
+        File file = new File("datasets/" + name);
         FileWriter writer = new FileWriter(file);
 
         for (Double[] c : content) {
