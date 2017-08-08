@@ -2,10 +2,11 @@
 
 Pré-requisitos:
 <li>Bash do linux
-<li>Maven (Comando mvn -> pacote maven)
+<li>Eclipse
+<li>Maven (Comando mvn -> pacote maven2)
 <li>Java sdk (Comando java -> pacote default-jre)
 
-Instruções para executar:
+Instruções para executar o script:
 <li>1) Clonar o repositório;
 <li>2) No bash do linux ir para a pasta do projeto (projetomc)
 <li>3) Executar o comando ./ordenar.sh $1 $2 $3 $4 $5 $6
@@ -30,7 +31,10 @@ dataset_gen:
 <li>$6 = Número inteiro maior ou igual a 0 representando a quantidade de array que serão gerados.
 
 EXEMPLOS:
-./ordenar.sh 
+./ordenar.sh sort_m1 insertion datasets/milestone1/dataset1.csv output/output2.csv ascending 5
+./ordenar.sh dataset_gen dataset2.csv ascending none
+
+(O dataset gerado irá para a pasta datasets do projeto automaticamente)
 
 Obs.: | = Ou exclusivo
 mvn clean install;java -cp ./target/classes ufcg.metodologia.projetomc.Main sort_m1 merge datasets/milestone1/dataset1.csv output/output1.csv ascending 10
