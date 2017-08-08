@@ -145,7 +145,6 @@ public class SortTestes {
         assertArrayEquals(emptyArray, empty);
     }
 
-    /*Esse teste demora na faixa de 60-70 segundos para rodar.*/
     @Test
     public void automatedTestForQuickSort(){
         Sort qs = SortFactory.createSort(SortAlgorithm.QUICK);
@@ -153,7 +152,6 @@ public class SortTestes {
         evaluateSortDescending(qs);
     }
 
-    /*Esse teste demora na faixa de 60-65 segundos para rodar.*/
     @Test
     public void automatedTestForMergeSort(){
         Sort ms = SortFactory.createSort(SortAlgorithm.MERGE);
@@ -161,7 +159,6 @@ public class SortTestes {
         evaluateSortDescending(ms);
     }
 
-    /*Esse teste demora na faixa de 3 minutos e 10-20 segundos para rodar.*/
     @Test
     public void automatedTestForInsertionSort(){
         Sort is = SortFactory.createSort(SortAlgorithm.INSERTION);
@@ -169,7 +166,7 @@ public class SortTestes {
         evaluateSortDescending(is);
     }
 
-    /**Avalia meu algoritmo de ordenação contra a implementação fornecida pelo próprio Java.
+    /* Avalia meu algoritmo de ordenação contra a implementação fornecida pelo próprio Java.
      * Isso fornece confiança de que minha implementação está adequada.*/
     private void evaluateSortAscending(Sort mySort) {
         for (Double[] array: randomArrays) {

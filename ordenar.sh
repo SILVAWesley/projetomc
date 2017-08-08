@@ -1,1 +1,1 @@
-mvn clean install;java -cp ./target/classes ufcg.metodologia.projetomc.Main $1 $2 $3 $4 $5 $6;
+java -cp ./target/classes ufcg.metodologia.projetomc.Main $1 $2 $3 $4 $5 $6;

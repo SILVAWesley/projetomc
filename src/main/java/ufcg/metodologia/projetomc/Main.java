@@ -1,21 +1,7 @@
 package ufcg.metodologia.projetomc;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import ufcg.metodologia.projetomc.comunication.TopLayerController;
 import ufcg.metodologia.projetomc.comunication.TopLayerFacade;
-import ufcg.metodologia.projetomc.dataset.Dataset;
-import ufcg.metodologia.projetomc.io.InputLoader;
-import ufcg.metodologia.projetomc.io.OutputSaver;
-import ufcg.metodologia.projetomc.sort.Sort;
-import ufcg.metodologia.projetomc.sort.SortFactory;
-import ufcg.metodologia.projetomc.util.OutputEntry;
-import ufcg.metodologia.projetomc.util.SortAlgorithm;
-import ufcg.metodologia.projetomc.util.SortOrder;
-import ufcg.metodologia.projetomc.util.SortedElements;
 
 public class Main {
 	/* INSTRUÇÕES:
@@ -36,7 +22,7 @@ public class Main {
 	 * 			3) A QUANTIDADE DE ELEMENTOS QUE SERÃO GERADOS ORDENADOS ('all' para todos os elementos e 'none' para nenhum).
 	 * 			4) O TAMANHO DE CADA ARRAY GERADO (Um número inteiro 0 ou maior).
 	 * 			5) A QUANTIDADE DE ARRAYS QUE SERÃO GERADOS (Um número inteiro 0 ou maior).
-	 * 		EXEMPLOS: dataset_gen meu_dataset ascending all 10 10
+	 * 		EXEMPLOS: dataset_gen meu_dataset.csv ascending all 10 10
 	 * 			      dataset_gen milestone1/meu_dataset none all 1 100
 	 * OBS.: IGNORAR OS CARACTERES ' E " NAS INSTRUÇÕES.
 	 */
@@ -56,26 +42,11 @@ public class Main {
     		String argSortType = args[3];
     		String argArraySize = args[4];
     		String argDatasetSize = args[5];
-    		datasetgen(argName, argOrder, argSortType, argArraySize, argDatasetSize);
+    		facade.generateDataset(argName, argOrder, argSortType, argArraySize, argDatasetSize);
     	} else if (args[0].equalsIgnoreCase("run_experiment")) {
     		throw new RuntimeException("Area under construction. Choose another command to run.");
     	} else {
     		throw new RuntimeException("The value of the first argument is not valid.");
-    	}
-    }
-    
-    public static void datasetgen(String argName, String argOrder, String argSortType, String argArraySize, String argDatasetSize) {
-    	try {
-	    	SortOrder sortOrder = SortOrder.valueOf(argOrder.toUpperCase());
-	    	SortedElements sortType = SortedElements.valueOf(argSortType.toUpperCase());
-	    	int arraySize = Integer.parseInt(argArraySize);
-	    	int datasetSize = Integer.parseInt(argDatasetSize);
-	    	
-	    	Dataset dataset = new Dataset(argName + ".csv", sortOrder, sortType, arraySize, datasetSize);
-	    	dataset.save();
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    		throw new RuntimeException("Error while trying to generate dataset. " + e.getMessage());
     	}
     }
 }

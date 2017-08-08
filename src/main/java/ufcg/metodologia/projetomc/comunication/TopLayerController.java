@@ -1,9 +1,11 @@
 package ufcg.metodologia.projetomc.comunication;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import ufcg.metodologia.projetomc.dataset.Dataset;
 import ufcg.metodologia.projetomc.io.InputLoader;
 import ufcg.metodologia.projetomc.io.OutputSaver;
 import ufcg.metodologia.projetomc.sort.Sort;
@@ -11,6 +13,7 @@ import ufcg.metodologia.projetomc.sort.SortFactory;
 import ufcg.metodologia.projetomc.util.OutputEntry;
 import ufcg.metodologia.projetomc.util.SortAlgorithm;
 import ufcg.metodologia.projetomc.util.SortOrder;
+import ufcg.metodologia.projetomc.util.SortedElements;
 
 public class TopLayerController implements TopLayerFacade {
 	public static final int WARM_UP_VALUE = 10;
@@ -29,10 +32,21 @@ public class TopLayerController implements TopLayerFacade {
 	    
 	    outputSaver.save(outputStr, outputEntries);
 	}
-
+	
 	@Override
-	public void generateDataset(String name, String order, String sortType, String arraySize, String datasetSize) {
-		
+	public void generateDataset(String nameStr, String orderStr, String sortedElementsStr, String arraySizeStr, String datasetSizeStr) {
+		try {
+	    	SortOrder orderEnum = SortOrder.valueOf(orderStr.toUpperCase());
+	    	SortedElements sortedElementsEnum = SortedElements.valueOf(sortedElementsStr.toUpperCase());
+	    	int arraySize = Integer.parseInt(arraySizeStr);
+	    	int datasetSize = Integer.parseInt(datasetSizeStr);
+	    	
+	    	Dataset dataset = new Dataset(nameStr, orderEnum, sortedElementsEnum, arraySize, datasetSize);
+	    	dataset.save();
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    		throw new RuntimeException("Error while trying to generate dataset. " + e.getMessage());
+    	}
 	}
 	
 	private List<OutputEntry> applySort(SortAlgorithm algorithmType, List<Double[]> input, SortOrder sortOrder, int replications) {
