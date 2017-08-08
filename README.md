@@ -14,4 +14,9 @@ Instruções para executar:
 Parâmetros:
 $1 = sort_m1 | dataset_gen
 
+Usar sort_m1 para realizar o sort em um dataset. Usar dataset_gen para gerar um dataset aleatório que segue as características passadas como parâmetro.
+
+sort_m1:
+$2 = 
+
 mvn clean install;java -cp ./target/classes ufcg.metodologia.projetomc.Main sort_m1 merge datasets/milestone1/dataset1.csv output/output1.csv ascending 10
