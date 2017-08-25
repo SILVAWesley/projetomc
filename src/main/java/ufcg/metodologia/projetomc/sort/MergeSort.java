@@ -4,9 +4,6 @@ import java.util.Arrays;
 
 import ufcg.metodologia.projetomc.util.Range;
 
-/**
- * Created by Lucas on 01/08/2017.
- */
 public class MergeSort extends Sort {
 
     private Double[] helper;

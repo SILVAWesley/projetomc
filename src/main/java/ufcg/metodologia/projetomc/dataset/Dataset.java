@@ -19,7 +19,7 @@ public class Dataset {
 
     private String name;
     private int arraySize;
-    private SortedElements sortType;
+    private SortedElements sortedElements;
     private int datasetSize;
     private SortOrder sortOrder;
 
@@ -30,10 +30,10 @@ public class Dataset {
         dataset.save();
     }
 
-    public Dataset(String name, SortOrder sortOrder, SortedElements sortType, int arraySize, int datasetSize) {
+    public Dataset(String name, SortOrder sortOrder, SortedElements sortedElements, int arraySize, int datasetSize) {
         this.name = name;
         this.sortOrder = sortOrder;
-        this.sortType = sortType;
+        this.sortedElements = sortedElements;
         this.arraySize = arraySize;
         this.datasetSize = datasetSize;
 
@@ -42,21 +42,30 @@ public class Dataset {
 
     private List<Double[]> createContent() {
         List<Double[]> content = new ArrayList<Double[]>();
-
-        for (int i = 0; i < this.datasetSize; i++) {
-            Double[] array = new Double[arraySize];
-
-            if ((sortOrder == SortOrder.ASCENDING && sortType == SortedElements.ALL) || (sortOrder == SortOrder.DESCENDING && sortType == SortedElements.NONE)) {
+        
+        if ((sortOrder == SortOrder.ASCENDING && sortedElements == SortedElements.ALL) || (sortOrder == SortOrder.DESCENDING && sortedElements == SortedElements.NONE)) {
+        	for (int i = 0; i < this.datasetSize; i++) {
+                Double[] array = new Double[arraySize];
                 generateAscendingOrderedArray(array);
-            } else if ((sortOrder == SortOrder.DESCENDING && sortType == SortedElements.ALL) || (sortOrder == SortOrder.ASCENDING && sortType == SortedElements.NONE)) {
-                generateDescendingOrderedArray(array);
-            } else if (sortOrder == SortOrder.NONE) {
-            	generateRandomArray(array);
-            } else {
-                throw new RuntimeException("Error, for input: sortOrder=" + sortOrder + " and sortType=" + sortType + ".");
+                System.out.println("Array " + i + " generated!");
+                content.add(array);
             }
-
-            content.add(array);
+        } else if ((sortOrder == SortOrder.DESCENDING && sortedElements == SortedElements.ALL) || (sortOrder == SortOrder.ASCENDING && sortedElements == SortedElements.NONE)) {
+        	for (int i = 0; i < this.datasetSize; i++) {
+                Double[] array = new Double[arraySize];
+                generateDescendingOrderedArray(array);
+                System.out.println("Array " + i + " generated!");
+                content.add(array);
+            }
+        } else if (sortedElements == SortedElements.RANDOM) {
+        	for (int i = 0; i < this.datasetSize; i++) {
+                Double[] array = new Double[arraySize];
+                generateDescendingOrderedArray(array);
+                generateRandomArray(array);
+                content.add(array);
+            }
+        } else {
+            throw new RuntimeException("Error, for input: sortOrder=" + sortOrder + " and sortType=" + sortedElements + ".");
         }
 
         return content;

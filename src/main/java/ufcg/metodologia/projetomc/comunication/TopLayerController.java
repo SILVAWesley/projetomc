@@ -49,49 +49,19 @@ public class TopLayerController implements TopLayerFacade {
     	}
 	}
 	
-	private List<OutputEntry> applySort(SortAlgorithm algorithmType, List<Double[]> input, SortOrder sortOrder, int replications) {
+	private List<OutputEntry> applySort(SortAlgorithm algorithmType, List<Double[]> input, SortOrder sortOrder, int replication) {
 		List<OutputEntry> outputEntries = new ArrayList<OutputEntry>();
 		Sort sort = SortFactory.createSort(algorithmType);
 		
-		List<Double[]> preparedInput = prepareInput(input, replications);
-		
-		for (int i = 0; i < preparedInput.size(); i++) {
-			Double[] array = preparedInput.get(i);
+		for (int i = 0; i < input.size(); i++) {
+			Double[] array = input.get(i);
 			String arrayStr = Arrays.toString(array);
 			
 			long executionTime = sort.sort(array, sortOrder.getValue());
-			
-			if (i >= WARM_UP_VALUE) {
-				
-				int showReplication = 0;
-				
-				if (replications != 0) {
-					showReplication = (i - WARM_UP_VALUE) % (replications + 1);
-				}
-				
-				OutputEntry entry = new OutputEntry(arrayStr, algorithmType.toString(), sortOrder.toString(), executionTime, showReplication);
-				outputEntries.add(entry);
-			}
+			OutputEntry entry = new OutputEntry(arrayStr, algorithmType.toString(), sortOrder.toString(), executionTime, replication);
+			outputEntries.add(entry);
 		}
 
 		return outputEntries;
-	}
-	
-	private List<Double[]> prepareInput(List<Double[]> input, int replications) {
-		List<Double[]> newInput = new ArrayList<>();
-		
-		// Generate warm up entries.
-		for (int i = 0; i < WARM_UP_VALUE; i++) {
-			newInput.add(Arrays.copyOf(input.get(0), input.get(0).length));
-		}
-		
-		// Generate arrays.
-		for (Double[] array : input) {
-			for (int i = 0; i <= replications; i++) {
-				newInput.add(Arrays.copyOf(array, array.length));
-			}
-		}
-		
-		return newInput;
 	}
 }
