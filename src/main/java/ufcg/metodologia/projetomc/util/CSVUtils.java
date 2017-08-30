@@ -18,12 +18,23 @@ public class CSVUtils {
 
         writeLine(w, v, DEFAULT_SEPARATOR, ' ');
     }
+    		
+    public static void writeOutpuHeader(Writer w) throws IOException {
+    	List<String> v = new ArrayList<String>();
+    	v.add("algorithm");
+    	v.add("num_elements");
+    	v.add("order");
+    	v.add("execution_time");
+    	v.add("replication");
+    	
+    	writeLine(w, v, ' ');
+    }
 
     public static void writeLine(Writer w, OutputEntry value) throws IOException {
         List<String> v = new ArrayList<String>();
 
-        v.add(String.valueOf(value.getInput()));
         v.add(String.valueOf(value.getAlgorithm()));
+        v.add(String.valueOf(value.getNumElements()));
         v.add(String.valueOf(value.getOrder()));
         v.add(String.valueOf(value.getExecutionTime()));
         v.add(String.valueOf(value.getReplication()));

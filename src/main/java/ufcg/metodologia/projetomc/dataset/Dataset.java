@@ -25,11 +25,6 @@ public class Dataset {
 
     private List<Double[]> content;
 
-    public static void main(String[] args) throws IOException {
-        Dataset dataset = new Dataset("dataset_1.csv", SortOrder.DESCENDING, SortedElements.ALL, 10, 100);
-        dataset.save();
-    }
-
     public Dataset(String name, SortOrder sortOrder, SortedElements sortedElements, int arraySize, int datasetSize) {
         this.name = name;
         this.sortOrder = sortOrder;
@@ -43,14 +38,14 @@ public class Dataset {
     private List<Double[]> createContent() {
         List<Double[]> content = new ArrayList<Double[]>();
         
-        if ((sortOrder == SortOrder.ASCENDING && sortedElements == SortedElements.ALL) || (sortOrder == SortOrder.DESCENDING && sortedElements == SortedElements.NONE)) {
+        if ((sortOrder == SortOrder.ASCENDING && sortedElements == SortedElements.ORDERED) || (sortOrder == SortOrder.DESCENDING && sortedElements == SortedElements.UNORDERED)) {
         	for (int i = 0; i < this.datasetSize; i++) {
                 Double[] array = new Double[arraySize];
                 generateAscendingOrderedArray(array);
                 System.out.println("Array " + i + " generated!");
                 content.add(array);
             }
-        } else if ((sortOrder == SortOrder.DESCENDING && sortedElements == SortedElements.ALL) || (sortOrder == SortOrder.ASCENDING && sortedElements == SortedElements.NONE)) {
+        } else if ((sortOrder == SortOrder.DESCENDING && sortedElements == SortedElements.ORDERED) || (sortOrder == SortOrder.ASCENDING && sortedElements == SortedElements.UNORDERED)) {
         	for (int i = 0; i < this.datasetSize; i++) {
                 Double[] array = new Double[arraySize];
                 generateDescendingOrderedArray(array);

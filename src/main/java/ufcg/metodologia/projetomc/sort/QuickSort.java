@@ -9,7 +9,7 @@ public class QuickSort extends Sort {
         long startTime = System.nanoTime();
         sort(array, new Range(0, array.length - 1), isAscending);
         long endTime = System.nanoTime();
-
+        System.out.println(endTime - startTime + "ns - Quicksort");
         return endTime - startTime;
     }
 

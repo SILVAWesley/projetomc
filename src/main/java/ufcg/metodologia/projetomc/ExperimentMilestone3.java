@@ -7,13 +7,13 @@ public class ExperimentMilestone3 {
 	public static void main(String[] args) {
 		TopLayerFacade facade = new TopLayerController();
 		
-		/*facade.generateDataset("milestone3/dataset1_ordered_10000.csv", "ASCENDING", "ALL", "10000", "100");
-		facade.generateDataset("milestone3/dataset2_notordered_10000.csv", "ASCENDING", "NONE", "10000", "100");
-		facade.generateDataset("milestone3/dataset3_random_10000.csv", "ASCENDING", "RANDOM", "10000", "100");
+		facade.generateDataset("novoset/dataset1_ordered_100000.csv", "ASCENDING", "ORDERED", "5000", "5");
+		facade.generateDataset("novoset/dataset2_notordered_100000.csv", "ASCENDING", "UNORDERED", "5000", "5");
+		facade.generateDataset("novoset/dataset3_random_100000.csv", "ASCENDING", "RANDOM", "5000", "5");
 		
-		facade.generateDataset("milestone3/dataset4_ordered_100.csv", "ASCENDING", "ALL", "100", "100");
-		facade.generateDataset("milestone3/dataset5_notordered_100.csv", "ASCENDING", "NONE", "100", "100");
-		facade.generateDataset("milestone3/dataset6_random_100.csv", "ASCENDING", "RANDOM", "100", "100");*/
+		facade.generateDataset("novoset/dataset4_ordered_100.csv", "ASCENDING", "ORDERED", "100", "5");
+		facade.generateDataset("novoset/dataset5_notordered_100.csv", "ASCENDING", "UNORDERED", "100", "5");
+		facade.generateDataset("novoset/dataset6_random_100.csv", "ASCENDING", "RANDOM", "100", "5");
 		
 		/*facade.sortMilestone1("quick", "datasets/milestone3/dataset1_ordered_10000.csv", "output/quick/dataset1/dataset1_rep0.csv", "ascending", "0");
 		facade.sortMilestone1("quick", "datasets/milestone3/dataset1_ordered_10000.csv", "output/quick/dataset1/dataset1_rep1.csv", "ascending", "1");
@@ -105,7 +105,7 @@ public class ExperimentMilestone3 {
 			facade.sortMilestone1("merge", "datasets/milestone3/dataset6_random_100.csv", "output/merge/dataset6/dataset6_rep" + i + ".csv", "ascending", "" + i);
 		}*/
 		
-		for (int i = 0; i < 10; i++) {
+		/*for (int i = 0; i < 10; i++) {
 			facade.sortMilestone1("insertion", "datasets/milestone3/dataset1_ordered_10000.csv", "output/insertion/dataset1/dataset1_rep" + i + ".csv", "ascending", "" + i);
 		}
 		
@@ -127,6 +127,6 @@ public class ExperimentMilestone3 {
 		
 		for (int i = 0; i < 10; i++) {
 			facade.sortMilestone1("insertion", "datasets/milestone3/dataset6_random_100.csv", "output/insertion/dataset6/dataset6_rep" + i + ".csv", "ascending", "" + i);
-		}
+		}*/
 	}
 }

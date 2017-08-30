@@ -13,7 +13,7 @@ public class MergeSort extends Sort {
         long startTime = System.nanoTime();
         sort(array, new Range(0, array.length - 1), isAscending);
         long endTime = System.nanoTime();
-
+        System.out.println(endTime - startTime + "ns - Mergesort");
         return endTime - startTime;
     }
 

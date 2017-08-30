@@ -28,9 +28,9 @@ public class TopLayerController implements TopLayerFacade {
 		OutputSaver outputSaver = new OutputSaver();
 	        
 		List<Double[]> input = inputLoader.load(inputStr);
-	    List<OutputEntry> outputEntries = applySort(algorithmEnum, input, orderEnum, replications);
+	    //List<OutputEntry> outputEntries = applySort(algorithmEnum, input, orderEnum, replications);
 	    
-	    outputSaver.save(outputStr, outputEntries);
+	    //outputSaver.save(outputStr, outputEntries);
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ public class TopLayerController implements TopLayerFacade {
     	}
 	}
 	
-	private List<OutputEntry> applySort(SortAlgorithm algorithmType, List<Double[]> input, SortOrder sortOrder, int replication) {
+	private List<OutputEntry> applySort(SortAlgorithm algorithmType, List<Double[]> input, SortedElements sortedElements, int replication) {
 		List<OutputEntry> outputEntries = new ArrayList<OutputEntry>();
 		Sort sort = SortFactory.createSort(algorithmType);
 		
@@ -57,11 +57,57 @@ public class TopLayerController implements TopLayerFacade {
 			Double[] array = input.get(i);
 			String arrayStr = Arrays.toString(array);
 			
-			long executionTime = sort.sort(array, sortOrder.getValue());
-			OutputEntry entry = new OutputEntry(arrayStr, algorithmType.toString(), sortOrder.toString(), executionTime, replication);
-			outputEntries.add(entry);
+			long executionTime = sort.sort(array, true);
+			//OutputEntry entry = new OutputEntry(algorithmType.toString(), sortedElements.toString(), executionTime, replication);
+			//outputEntries.add(entry);
 		}
 
 		return outputEntries;
+	}
+	
+	public void sortExperiment() {
+		List<OutputEntry> outputEntries = new ArrayList<OutputEntry>();
+		InputLoader inputLoader = new InputLoader();
+		
+		//List<Double[]> wurmup = inputLoader.load("datasets/dataset1.csv");
+		
+		List<Double[]> dataset1 = inputLoader.load("datasets/novoset/dataset1_ordered_100000.csv");
+		List<Double[]> dataset2 = inputLoader.load("datasets/novoset/dataset2_notordered_100000.csv");
+		List<Double[]> dataset3 = inputLoader.load("datasets/novoset/dataset3_random_100000.csv");
+		List<Double[]> dataset4 = inputLoader.load("datasets/novoset/dataset4_ordered_100.csv");
+		List<Double[]> dataset5 = inputLoader.load("datasets/novoset/dataset5_notordered_100.csv");
+		List<Double[]> dataset6 = inputLoader.load("datasets/novoset/dataset6_random_100.csv");
+		
+		SortAlgorithm[] algorithms = {SortAlgorithm.QUICK, SortAlgorithm.INSERTION, SortAlgorithm.MERGE};
+		//outputForDataset(new ArrayList<>(), SortedElements.RANDOM, algorithms, wurmup);
+		outputForDataset(outputEntries, SortedElements.ORDERED, algorithms, dataset1);
+		outputForDataset(outputEntries, SortedElements.UNORDERED, algorithms, dataset2);
+		outputForDataset(outputEntries, SortedElements.RANDOM, algorithms, dataset3);
+		outputForDataset(outputEntries, SortedElements.ORDERED, algorithms, dataset4);
+		outputForDataset(outputEntries, SortedElements.UNORDERED, algorithms, dataset5);
+		outputForDataset(outputEntries, SortedElements.RANDOM, algorithms, dataset6);
+		
+		OutputSaver outputSaver = new OutputSaver();
+		outputSaver.save("output/output.csv", outputEntries);
+	}
+	
+	private void outputForDataset(List<OutputEntry> outputEntries, SortedElements se, SortAlgorithm[] algorithms, List<Double[]> dataset) {
+		for (Double[] array : dataset) {
+			for (SortAlgorithm sa : algorithms) {
+				for (int i = 1; i <= 5; i++) {
+					Double[] cpyArray = Arrays.copyOf(array, array.length);
+					Sort sort = SortFactory.createSort(sa);
+					long executionTime = sort.sort(cpyArray, true);
+					OutputEntry entry = new OutputEntry(sa.toString().toLowerCase(), cpyArray.length, se.toString().toLowerCase(), executionTime, i);
+					outputEntries.add(entry);
+				}
+			}
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		TopLayerController c = new TopLayerController();
+		c.sortExperiment();
 	}
 }

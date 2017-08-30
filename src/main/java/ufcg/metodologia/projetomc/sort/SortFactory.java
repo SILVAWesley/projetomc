@@ -9,13 +9,14 @@ public class SortFactory {
     * */
     public static Sort createSort(SortAlgorithm sortAlgorithm) {
         Sort selected;
+        
 
         switch(sortAlgorithm) {
             case MERGE:
                 selected = new MergeSort();
                 break;
             case QUICK:
-                selected = new MergeSort();
+                selected = new QuickSort();
                 break;
             case INSERTION:
                 selected = new InsertionSort();

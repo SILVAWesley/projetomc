@@ -17,7 +17,9 @@ public class OutputSaver {
         try {
             File output = new File(path);
             FileWriter writer = new FileWriter(output);
-
+            
+            CSVUtils.writeOutpuHeader(writer);
+            
             for (OutputEntry entry : outputEntries) {
                 CSVUtils.writeLine(writer, entry);
             }

@@ -6,9 +6,11 @@ public class InsertionSort extends Sort {
 
     @Override
     public long sort(Double[] array, boolean isAscending) {
+        long st = System.currentTimeMillis();
         long startTime = System.nanoTime();
         sort(array, new Range(0, array.length), isAscending);
         long endTime = System.nanoTime();
+        System.out.println(endTime - startTime + "ns - Insertionsort");
 
         return endTime - startTime;
     }

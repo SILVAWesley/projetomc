@@ -5,26 +5,26 @@ package ufcg.metodologia.projetomc.util;
  */
 
 public class OutputEntry {
-    private String input;
     private String algorithm;
+    private int numElements;
     private String order;
     private long executionTime;
     private int replication;
 
-    public OutputEntry(String input, String algorithm, String order, long executionTime, int replication) {
-        this.input = input;
+    public OutputEntry(String algorithm, int numElements, String order, long executionTime, int replication) {
         this.algorithm = algorithm;
         this.order = order;
         this.executionTime = executionTime;
+        this.numElements = numElements;
         this.replication = replication;
-    }
-
-    public String getInput() {
-        return input;
     }
 
     public String getAlgorithm() {
         return algorithm;
+    }
+    
+    public int getNumElements() {
+    	return numElements;
     }
 
     public String getOrder() {
